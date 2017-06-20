@@ -256,12 +256,27 @@ jQuery( function( $ ) {
 		});
 	};
 
+	var fix_mobile_menu = function() {
+		var mobile_menu = $('.mobile-sidebar .sidebar-menu .nav');
+		mobile_menu.find('a').each(function(){
+			var a = $(this);
+			var toggle = a.next('.toggle');
+			if(toggle.length > 0 && a.attr('href') === '#') {
+				a.off().click(function(e){
+					toggle.click();
+					e.preventDefault();
+				}); // a.click
+			}
+		});
+	};
+
 	$(document).ready(function(){
 		masks_init();
 		init_cep();
 		nome_completo_init();
 		desativa_campos();
 		fix_layout_inscricao_estadual();
+		fix_mobile_menu();
 	}); // $(document).ready
 
 });
