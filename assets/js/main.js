@@ -218,7 +218,7 @@ jQuery( function( $ ) {
 		// $( '.rg-mask' ).find( 'input' ).mask( '00.000.000-0' );
 		$( '.cep-mask' ).find( 'input' ).mask( '00000-000' );
 		$( '.cep-mask-input' ).mask( '00000-000' );
-		$( '.fone-mask-input' ).mask( '(00) 00000-000?0' );
+		$( '.fone-mask-input' ).mask( '(00) 90000-0000' );
 	};
 
 	var desativa_campos = function() {
