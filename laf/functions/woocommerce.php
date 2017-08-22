@@ -354,3 +354,19 @@ function cf_edit_comment_form( $comment_form ) {
 	// $utils->debug( $comment_form );
 	return $comment_form;
 }
+
+/*
+ *
+ * Limita o número de caracteres do título dos produtos
+ *
+ */
+
+remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
+add_action( 'woocommerce_shop_loop_item_title', 'cf_template_loop_product_title', 10 );
+
+function cf_template_loop_product_title() {
+	$title = get_the_title( );
+	// $title = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sed luctus arcu, non congue tortor.'; //debug
+	$short_title = wp_trim_words( $title, 12, '' );
+	echo '<h2 class="woocommerce-loop-product__title cf-wc-loop-product-title" title="' . $title . '">' . $short_title . '</h2>';
+}
