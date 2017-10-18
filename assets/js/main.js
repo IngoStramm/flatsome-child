@@ -120,7 +120,7 @@ jQuery( function( $ ) {
 
 				var correios = $.ajax({
 					type: 'GET',
-					url: '//correiosapi.apphb.com/cep/' + cep,
+					url: '//viacep.com.br/ws/' + cep + '/json/',
 					dataType: 'jsonp',
 					crossDomain: true,
 					contentType: 'application/json'
@@ -128,6 +128,8 @@ jQuery( function( $ ) {
 
 				// Gets the address.
 				correios.done( function ( address ) {
+
+					console.log('carregou');
 
 					// Address.
 					if ( '' !== address.tipoDeLogradouro ) {
