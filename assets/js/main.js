@@ -129,14 +129,8 @@ jQuery( function( $ ) {
 				// Gets the address.
 				correios.done( function ( address ) {
 
-					console.log('carregou');
-
 					// Address.
-					if ( '' !== address.tipoDeLogradouro ) {
-						$( '#' + field + '_address_1' ).val( address.tipoDeLogradouro + ' ' + address.logradouro ).change();
-					} else {
-						$( '#' + field + '_address_1' ).val( address.logradouro ).change();
-					}
+					$( '#' + field + '_address_1' ).val( address.logradouro ).change();
 
 					// Neighborhood.
 					$( '#' + field + '_neighborhood' ).val( address.bairro ).change();
