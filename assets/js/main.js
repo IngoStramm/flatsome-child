@@ -136,17 +136,17 @@ jQuery( function( $ ) {
 					$( '#' + field + '_neighborhood' ).val( address.bairro ).change();
 
 					// City.
-					if( '' !== address.cidade ) {
-						$( '#' + field + '_city' ).val( address.cidade ).change();
+					if( '' !== address.localidade ) {
+						$( '#' + field + '_city' ).val( address.localidade ).change();
 					} else {
 						exibe_esconde_campos_checkout(val, true, array( $( '#' + field + '_city' ) ) );
 					}
 
 					// State.
-					if( '' !== address.estado ) {
+					if( '' !== address.uf ) {
 						$( '#' + field + '_state option:selected' ).attr( 'selected', false ).change();
-						$( '#' + field + '_state option[value="' + address.estado + '"]' ).attr( 'selected', 'selected' ).change();
-						$( '#' + field + '_state' ).val( address.estado ).change();
+						$( '#' + field + '_state option[value="' + address.uf + '"]' ).attr( 'selected', 'selected' ).change();
+						$( '#' + field + '_state' ).val( address.uf ).change();
 					} else {
 						exibe_esconde_campos_checkout(val, true, array( $( '#' + field + '_state' ) ) );
 					}
