@@ -370,3 +370,18 @@ function cf_template_loop_product_title() {
 	$short_title = wp_trim_words( $title, 12, '' );
 	echo '<h2 class="woocommerce-loop-product__title cf-wc-loop-product-title" title="' . $title . '">' . $short_title . '</h2>';
 }
+
+add_action( 'wp_footer', 'cart_update_qty_script' );
+
+function cart_update_qty_script() {
+	if (is_cart()) :
+		?>
+		<script>
+			jQuery('div.woocommerce').on('change', '.qty', function(){
+				jQuery("[name='update_cart']").removeAttr('disabled');
+				jQuery("[name='update_cart']").trigger("click"); 
+			});
+		</script>
+		<?php
+	endif;
+}
