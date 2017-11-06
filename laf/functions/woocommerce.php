@@ -28,7 +28,7 @@ add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields', 1
 function custom_override_checkout_fields( $get_fields ) {
 
 	$utils = new Utils;
-	unset($get_fields['order']['order_comments']);
+	// unset($get_fields['order']['order_comments']);
 	$fields = is_checkout() ? $get_fields['billing'] : $get_fields;
 	$tipo_pessoa_habilitado = isset( $fields['billing_persontype'] );
 	$ie = isset( $fields['billing_ie'] );
