@@ -156,7 +156,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 				<?php do_action( 'woocommerce_cart_actions' ); ?>
 
-				<?php /* ?><input type="submit" class="button primary mt-0 pull-left small" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>" /><?php */ ?>
+				<input type="submit" class="button primary mt-0 pull-left small hidden" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>" />
 
 				<?php wp_nonce_field( 'woocommerce-cart' ); ?>
 			</td>
