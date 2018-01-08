@@ -129,12 +129,12 @@ jQuery( function( $ ) {
 				// Gets the address.
 				correios.done( function ( address ) {
 
-					console.log('address.logradouro: ' + address.logradouro);
-
 					// Address.
 					if( address.logradouro ) {
+						console.log('encontrou logradouro');
 						$( '#' + field + '_address_1' ).val( address.logradouro ).attr( 'readonly', 'readonly' ).change().closest( '.form-row' ).addClass( 'disabled-input' );
 					} else {
+						console.log('não encontrou logradouro');
 						$( '#' + field + '_address_1' ).attr('readonly', false).val( '' ).change().closest( '.form-row' ).removeClass( 'disabled-input' );
 					}
 
