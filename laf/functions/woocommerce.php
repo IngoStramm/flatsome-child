@@ -182,7 +182,7 @@ function nome_completo_checkout_field_process() {
 
 // Remove verificação de segurança da senha
 
-add_action( 'wp_print_scripts', 'cf_remove_password_strength', 100 );
+// add_action( 'wp_print_scripts', 'cf_remove_password_strength', 100 );
 
 function cf_remove_password_strength() {
 	if ( wp_script_is( 'wc-password-strength-meter', 'enqueued' ) ) {
