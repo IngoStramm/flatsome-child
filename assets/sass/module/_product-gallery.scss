@@ -2,8 +2,11 @@
 
 	.product-gallery .product-thumbnails img, 
 	.product-gallery .product-gallery-slider img {
+		display: block;
 		width: auto;
 		max-height: 500px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 }@media(min-width: 1200px) {
