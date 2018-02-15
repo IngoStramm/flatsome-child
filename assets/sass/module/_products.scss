@@ -1,5 +1,11 @@
 .products {
-	&.has-equal-box-heights .box-image {
+	&.has-equal-box-heights {
+		.box-image {
 		padding-top: 100%;
+			img {
+				width: auto !important;
+				max-height: 100% !important;
+			}
+		}
 	}
 }
