@@ -1,0 +1,17 @@
+@media(min-width: 768px) {
+
+	.product-gallery .product-thumbnails img, 
+	.product-gallery .product-gallery-slider img {
+		width: auto;
+		max-height: 500px;
+	}
+
+}@media(min-width: 1200px) {
+
+	.product-gallery .product-thumbnails img, 
+	.product-gallery .product-gallery-slider img {
+		width: auto;
+		max-height: 600px;
+	}
+
+}
