@@ -256,8 +256,8 @@ function parcelamentos_tabs() {
 		$juros = $parc['juros'];
 		// $utils->debug( $ativo );
 		// $utils->debug( $nome );
-		// $utils->debug( $parc_com_juros );
 		// $utils->debug( $vezes_sem_juros );
+		// $utils->debug( $vezes_com_juros );
 		$content .= '[tab title="' . $nome . '"]';
 		$content .= '<ul>';
 		$numero_vezes = 1;
@@ -266,7 +266,7 @@ function parcelamentos_tabs() {
 			$content .= '<li class="bullet-checkmark">' . $parcela->getNumeroVezes() . 'x (' . wc_price( $parcela->getValorParcela() ) . ') sem juros. Total: ' . wc_price( $parcela->getValorTotalParcelas() ) . '</li>';
 			$numero_vezes++;
 		endfor;
-		if( $vezes_com_juros > 0 ) :
+		if( $vezes_com_juros > 0 && $vezes_com_juros != null ) :
 			foreach ( $juros as $juro ) :
 				$parcela = new Parcela( $numero_vezes, $price, $juro );
 				$content .= '<li class="bullet-checkmark">' . $parcela->getNumeroVezes() . 'x (' . wc_price( $parcela->getValorParcela() ) . ') com juros de ' . $parcela->getDisplayJuros() . '% ao mês. Total: ' . wc_price( $parcela->getValorTotalParcelas() ) . '</li>';
@@ -324,11 +324,12 @@ function get_parcelas_arr() {
 			$post_id = get_the_ID();
 			$vezes_sem_juros = get_post_meta( $post_id, 'numero_parc_sem_juros', true );
 			$vezes_com_juros = get_post_meta( $post_id, 'numero_parc_com_juros', true );
+			$num_vezes_com_juros = empty( $vezes_com_juros ) ? 0 : count( $vezes_com_juros );
 			$parc = array(
 				'id'				=> $post_id,
 				'title'				=> get_the_title( $post_id ),
 				'vezes_sem_juros'	=> $vezes_sem_juros,
-				'vezes_com_juros'	=> count( $vezes_com_juros ),
+				'vezes_com_juros'	=> $num_vezes_com_juros,
 				'juros'	=> $vezes_com_juros,
 			);
 			$parcelas[] = $parc;
