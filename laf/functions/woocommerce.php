@@ -229,6 +229,10 @@ add_action( 'woocommerce_single_product_summary', 'add_parcelamento', 10 );
 add_action( 'woocommerce_single_product_lightbox_summary', 'get_best_parcela_sem_juros', 100 );
 // add_action( 'woocommerce_single_product_lightbox_summary', 'exibe_parcelamentos_tabs', 100 );
 
+function add_best_parcela_and_add_cto_cart_link( $link, $product ) {
+	return $link . get_best_parcela_sem_juros();
+}
+
 function add_parcelamento() {
 	$utils = new Utils;
 	$post_id = get_the_id();
