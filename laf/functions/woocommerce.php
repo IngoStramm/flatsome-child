@@ -222,7 +222,8 @@ function wo_cors_check_and_response(){
 	header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
 }
 
-add_action( 'woocommerce_after_shop_loop_item_title', 'get_best_parcela_sem_juros', 10 );
+// add_action( 'woocommerce_after_shop_loop_item_title', 'get_best_parcela_sem_juros', 10 );
+add_filter( 'woocommerce_loop_add_to_cart_link', 'add_best_parcela_and_add_cto_cart_link', 10, 2 );
 add_action( 'woocommerce_single_product_summary', 'get_best_parcela_sem_juros', 10 );
 add_action( 'woocommerce_single_product_summary', 'add_parcelamento', 10 );
 add_action( 'woocommerce_single_product_lightbox_summary', 'get_best_parcela_sem_juros', 100 );
