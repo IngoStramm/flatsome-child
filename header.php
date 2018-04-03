@@ -11,21 +11,21 @@
 
 	<?php wp_head(); ?>
 	<?php
-		$utils = new Utils;
-		$google_analytics_id = cf_get_option( 'google_analytics_id' );
-		if( $google_analytics_id ) :
-			$utils->google_analytics( $google_analytics_id );
-		endif;
+		// $utils = new Utils;
+		// $google_analytics_id = cf_get_option( 'google_analytics_id' );
+		// if( $google_analytics_id ) :
+		// 	$utils->google_analytics( $google_analytics_id );
+		// endif;
 	?>
 </head>
 
 <body <?php body_class(); // Body classes is added from inc/helpers-frontend.php ?>>
 
 <?php
-	$rd_station_analytics = cf_get_option( 'rd_station_analytics' );
-	if( $rd_station_analytics ) :
-		$utils->rd_station_analytics( $rd_station_analytics );
-	endif;
+	// $rd_station_analytics = cf_get_option( 'rd_station_analytics' );
+	// if( $rd_station_analytics ) :
+		// $utils->rd_station_analytics( $rd_station_analytics );
+	// endif;
 ?>
 
 <a class="skip-link screen-reader-text" href="#main"><?php esc_html_e( 'Skip to content', 'flatsome' ); ?></a>
