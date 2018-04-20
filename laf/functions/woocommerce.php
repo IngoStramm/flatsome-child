@@ -211,9 +211,9 @@ function cf_product_upsell_sidebar(){
 // Move os Produtos Relacionados e Mais Vendidos para antes das abas do produto
 
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
-remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
+// remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 8 );
-add_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 9 );
+// add_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 9 );
 
 //Used for mobile application login
 add_action('wo_before_api', 'wo_cors_check_and_response');
