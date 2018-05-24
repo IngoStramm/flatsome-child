@@ -27,6 +27,9 @@ add_action( 'admin_bar_menu', 'remove_bar_menu_page_edit', 999 );
 function remove_bar_menu_page_edit( $wp_admin_bar ) {
 	$utils = new Utils;
 	global $post;
+	if( is_null( $post ) )
+		return;
+	// $utils->debug( $post );
 	$administrador = current_user_can('manage_options');
 	$post_id = $post->ID;
 	$protege_page = get_post_meta( $post_id, 'protect_page_active', true );
