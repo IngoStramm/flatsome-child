@@ -131,12 +131,12 @@ function custom_override_checkout_fields( $get_fields ) {
 	$fields['billing_state']['placeholder'] = $fields['billing_state']['label'];
 	$fields['billing_state']['priority'] = 55;
 
-	$fields['billing_first_name']['class'] = array( 'form-row', 'form-row-first', 'primeiro-nome', 'hidden');
+	$fields['billing_first_name']['class'] = array( 'form-row', 'form-row-first', 'primeiro-nome', 'hidden' );
 	$fields['billing_first_name']['placeholder'] = $fields['billing_first_name']['label'];
 	$fields['billing_first_name']['priority'] = 90;
 	$fields['billing_first_name']['required'] = false;
 
-	$fields['billing_last_name']['class'] = array( 'form-row', 'form-row-last', 'sobrenome', 'hidden');
+	$fields['billing_last_name']['class'] = array( 'form-row', 'form-row-last', 'sobrenome', 'hidden' );
 	$fields['billing_last_name']['placeholder'] = $fields['billing_last_name']['label'];
 	$fields['billing_last_name']['priority'] = 91;
 	$fields['billing_last_name']['required'] = false;
@@ -172,12 +172,15 @@ function custom_override_checkout_fields( $get_fields ) {
 
 // Valida o novo campo customizado
 
-add_action('woocommerce_checkout_process', 'nome_completo_checkout_field_process');
+add_action('woocommerce_checkout_process', 'cf_validation_checkout_field_process');
 
-function nome_completo_checkout_field_process() {
-    // Check if set, if its not set add an error.
+function cf_validation_checkout_field_process() {
+
     if( !strpos( trim( $_POST['billing_full_name'] ), ' ' ) )
-        wc_add_notice( __( '"<strong>Nome Completo"</strong> precisa de um Nome e um Sobrenome.', 'cf' ), 'error' );
+        wc_add_notice( __( '<strong>"Nome Completo"</strong> precisa de um Nome e um Sobrenome.', 'cf' ), 'error' );
+
+    if( empty( $_POST['billing_first_name'] ) || empty( $_POST['billing_last_name'] ) )
+        wc_add_notice( __( 'Por favor, preencha novamente o campo <strong>"Nome Completo"</strong>. Precisamos atualizar os dados dos nossos clientes, esse procedimento só será solicitado uma vez.', 'cf' ), 'error' );
 }
 
 // Remove verificação de segurança da senha
