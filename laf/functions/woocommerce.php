@@ -31,6 +31,8 @@ function custom_override_checkout_fields( $get_fields ) {
 	// unset($get_fields['order']['order_comments']);
 	$fields = is_checkout() ? $get_fields['billing'] : $get_fields;
 	$tipo_pessoa_habilitado = isset( $fields['billing_persontype'] );
+	$wcbcf_settings = get_option( 'wcbcf_settings', true );
+	$show_rg = array_key_exists( 'rg', $wcbcf_settings );
 	$ie = isset( $fields['billing_ie'] );
 	$pf = isset( $fields['billing_cpf'] );
 	$pj = isset( $fields['billing_cnpj'] );
@@ -64,9 +66,19 @@ function custom_override_checkout_fields( $get_fields ) {
 		$fields['billing_cpf']['placeholder'] = $fields['billing_cpf']['label'];
 		$fields['billing_cpf']['priority'] = 3;
 
-		$fields['billing_rg']['class'] = array( 'form-row', 'form-row-last', 'rg-mask');
-		$fields['billing_rg']['placeholder'] = $fields['billing_rg']['label'];
-		$fields['billing_rg']['priority'] = 4;
+		if( $show_rg ) :
+
+			$fields['billing_rg']['class'] = array( 'form-row', 'form-row-last', 'rg-mask');
+			$fields['billing_rg']['placeholder'] = $fields['billing_rg']['label'];
+			$fields['billing_rg']['priority'] = 4;
+
+		else :
+
+			$fields['billing_full_name'][ 'class' ] = array( 'form-row', 'form-row-wide', 'nome-completo' );
+			$fields['billing_persontype']['class'] =  array( 'form-row', 'form-row-first' );
+			$fields['billing_cpf']['class'] = array( 'form-row', 'form-row-last');
+
+		endif;
 
 	endif;
 
