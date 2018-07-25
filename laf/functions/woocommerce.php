@@ -74,9 +74,9 @@ function custom_override_checkout_fields( $get_fields ) {
 
 		else :
 
-			$fields['billing_full_name'][ 'class' ] = array( 'form-row', 'form-row-wide', 'nome-completo' );
-			$fields['billing_persontype']['class'] =  array( 'form-row', 'form-row-first' );
-			$fields['billing_cpf']['class'] = array( 'form-row', 'form-row-last');
+			// $fields['billing_full_name'][ 'class' ] = array( 'form-row', 'form-row-wide', 'nome-completo' );
+			// $fields['billing_persontype']['class'] =  array( 'form-row', 'form-row-first' );
+			$fields['billing_cpf']['class'] = array( 'form-row', 'form-row-wide');
 
 		endif;
 
