@@ -135,11 +135,11 @@ class Cf_Admin {
 			'type' => 'text',
 		) );
 
-		$cmb->add_field( array(
-			'name' => __( 'Src do código de monitoramento do RD Station', 'cf' ),
-			'id'   => 'rd_station_analytics',
-			'type' => 'text',
-		) );
+		// $cmb->add_field( array(
+		// 	'name' => __( 'Src do código de monitoramento do RD Station', 'cf' ),
+		// 	'id'   => 'rd_station_analytics',
+		// 	'type' => 'text',
+		// ) );
 
 
 	}
