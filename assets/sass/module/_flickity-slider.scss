@@ -1,7 +1,12 @@
 @media (min-width: 768px) {
-	.flickity-slider .box-image {
-		display: flex;
-		align-items: center;
-		height: 300px;
+	.flickity-slider {
+	.box-image {
+			display: flex;
+			align-items: center;
+			height: 300px;
+			.image-cover {
+				position: static;
+			}
+		}
 	}
 }
