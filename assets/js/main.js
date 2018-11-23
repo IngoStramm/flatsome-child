@@ -10,7 +10,13 @@ jQuery( function( $ ) {
 		}
 	};
 
-	var exibe_esconde_campos_checkout = function(val, force_show, fields ) {
+	var exibe_esconde_campos_checkout = function(val, key, force_show, fields ) {
+
+		if( typeof key === 'undefined' ) {
+			key = 'billing';
+		}
+
+
 		if( typeof force_show !== 'undefined' && typeof fields !== 'undefined' ) {
 			console.log( '1' );
 			console.log( 'force_show: ' + force_show );
@@ -27,11 +33,13 @@ jQuery( function( $ ) {
 				}
 			}
 		} else if( verifica_formato_cep(val) ) {
-			// console.log('2');
-			$('#billing_address_1_field, #billing_number_field, #billing_address_2_field, #billing_neighborhood_field, #billing_city_field, #billing_state_field').addClass('visivel');
+			console.log('key: ' + key);
+			console.log('2');
+			$('#' + key + '_address_1_field, #' + key + '_number_field, #' + key + '_address_2_field, #' + key + '_neighborhood_field, #' + key + '_city_field, #' + key + '_state_field').addClass('visivel');
 		} else {
-			// console.log('3');
-			$('#billing_address_1_field, #billing_number_field, #billing_address_2_field, #billing_neighborhood_field, #billing_city_field, #billing_state_field').removeClass('visivel');
+			console.log('key: ' + key);
+			console.log('3');
+			$('#' + key + '_address_1_field, #' + key + '_number_field, #' + key + '_address_2_field, #' + key + '_neighborhood_field, #' + key + '_city_field, #' + key + '_state_field').removeClass('visivel');
 		}
 
 	};
@@ -44,8 +52,8 @@ jQuery( function( $ ) {
 		$('.nome-completo').each(function(){
 			var nome = $(this).find('input');
 			var row = nome.closest('.form-row');
-			var first_name = nome.closest('form').find('.primeiro-nome').find('input');
-			var last_name = nome.closest('form').find('.sobrenome').find('input');
+			var first_name = nome.closest('.clear').find('.primeiro-nome').find('input');
+			var last_name = nome.closest('.clear').find('.sobrenome').find('input');
 			$(nome).keyup(function(){
 				var primeiro_nome = '';
 				var sobrenome = '';
@@ -151,7 +159,7 @@ jQuery( function( $ ) {
 					if( '' !== address.localidade ) {
 						$( '#' + field + '_city' ).val( address.localidade ).change();
 					} else {
-						exibe_esconde_campos_checkout(val, true, array( $( '#' + field + '_city' ) ) );
+						exibe_esconde_campos_checkout(val, field, true, array( $( '#' + field + '_city' ) ) );
 					}
 
 					// State.
@@ -160,13 +168,13 @@ jQuery( function( $ ) {
 						$( '#' + field + '_state option[value="' + address.uf + '"]' ).attr( 'selected', 'selected' ).change();
 						$( '#' + field + '_state' ).val( address.uf ).change();
 					} else {
-						exibe_esconde_campos_checkout(val, true, array( $( '#' + field + '_state' ) ) );
+						exibe_esconde_campos_checkout(val, field, true, array( $( '#' + field + '_state' ) ) );
 					}
 
 					// Chosen support.
 					$( '#' + field + '_state' ).trigger( 'liszt:updated' ).trigger( 'chosen:updated' );
 
-					$('#billing_number').focus();
+					$('#' + field + '_number').focus();
 
 					if( $('.cep-notice').length ) {
 						$('.cep-notice').remove();
@@ -178,8 +186,8 @@ jQuery( function( $ ) {
 
 						var msg = $('<div class="cep-notice"><div class="woocommerce-messages alert-color"><div class="message-wrapper"><ul class="woocommerce-error"><li><div class="message-container container"><span class="message-icon icon-close"><strong>CEP</strong> não encontrado. Digite outro CEP ou preencha manualmente o restante das informações do endereço.</span></div></li></ul></div></div></div>');
 
-						$('#billing_postcode').focus();
-						$('#billing_postcode').closest('form.checkout.woocommerce-checkout').prepend(msg);
+						$('#' + field + '_postcode').focus();
+						$('#' + field + '_postcode').closest('form.checkout.woocommerce-checkout').prepend(msg);
 
 					}
 
@@ -198,18 +206,33 @@ jQuery( function( $ ) {
 
 		addressAutoComplete( 'billing' );
 
-		cep_input = $('#billing_postcode');
+		billing_cep_input = $('#billing_postcode');
+		shipping_cep_input = $('#shipping_postcode');
 
-		exibe_esconde_campos_checkout(cep_input.val());
+		exibe_esconde_campos_checkout(billing_cep_input.val(), 'billing' );
 
-		cep_input.keyup(function(){
+		billing_cep_input.keyup(function(){
 			var val = $(this).val();
 			// console.log('keyup');
 			// console.log('val.length: ' + val.length);
-			exibe_esconde_campos_checkout(val);
+			exibe_esconde_campos_checkout(val, 'billing' );
 			if(val.length === 9) {
 				// console.log('val.length == 9');
 				addressAutoComplete( 'billing' );
+				$( 'body' ).trigger( 'update_checkout' );
+			}
+		});		
+		
+		exibe_esconde_campos_checkout(shipping_cep_input.val(), 'shipping' );
+	
+		shipping_cep_input.keyup(function(){
+			var val = $(this).val();
+			// console.log('keyup');
+			// console.log('val.length: ' + val.length);
+			exibe_esconde_campos_checkout(val, 'shipping' );
+			if(val.length === 9) {
+				// console.log('val.length == 9');
+				addressAutoComplete( 'shipping' );
 				$( 'body' ).trigger( 'update_checkout' );
 			}
 		});		
@@ -230,6 +253,7 @@ jQuery( function( $ ) {
 		$( '.cep-mask' ).find( 'input' ).mask( '00000-000' );
 		$( '.cep-mask-input' ).mask( '00000-000' );
 		$( '#billing_postcode' ).mask( '00000-000' );
+		$( '#shipping_postcode' ).mask( '00000-000' );
 		$( '.fone-mask-input' ).mask( '(00) 90000-0000' );
 	};
 

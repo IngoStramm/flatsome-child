@@ -1,0 +1,24 @@
+.woocommerce-shipping-fields {
+	.form-row {
+		label {
+			display: none;
+		}
+		&#shipping_country_field {
+			display: none;
+		}
+	}
+}
+
+#shipping_address_1_field,
+#shipping_number_field,
+#shipping_address_2_field,
+#shipping_neighborhood_field {
+	display: none !important;
+}
+
+#shipping_address_1_field.visivel,
+#shipping_number_field.visivel,
+#shipping_address_2_field.visivel,
+#shipping_neighborhood_field.visivel {
+	display: block !important;
+}

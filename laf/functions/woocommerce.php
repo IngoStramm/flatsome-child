@@ -24,22 +24,23 @@ function fix_clearfix_profile_address() {
 // Referência @link: https://docs.woocommerce.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
 add_filter( 'woocommerce_billing_fields' , 'custom_override_checkout_fields', 10 );
 add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields', 10 );
+add_filter( 'woocommerce_shipping_fields' , 'custom_override_checkout_fields', 10 );
   
 function custom_override_checkout_fields( $get_fields ) {
 
 	$utils = new Utils;
+	$key = isset( $get_fields[ 'shipping_first_name' ] ) ? 'shipping' : 'billing';
 	// unset($get_fields['order']['order_comments']);
-	$fields = is_checkout() ? $get_fields['billing'] : $get_fields;
-	$tipo_pessoa_habilitado = isset( $fields['billing_persontype'] );
+	$fields = is_checkout() && $key == 'billing' ? $get_fields[ $key ] : $get_fields;
+	$tipo_pessoa_habilitado = isset( $fields[ $key . '_persontype'] );
 	$wcbcf_settings = get_option( 'wcbcf_settings', true );
 	$show_rg = array_key_exists( 'rg', $wcbcf_settings );
-	$ie = isset( $fields['billing_ie'] );
-	$pf = isset( $fields['billing_cpf'] );
-	$pj = isset( $fields['billing_cnpj'] );
+	$ie = isset( $fields[ $key . '_ie'] );
+	$pf = isset( $fields[ $key . '_cpf'] );
+	$pj = isset( $fields[ $key . '_cnpj'] );
 
-
-	if( !isset( $fields['billing_full_name'] ) ) :
-		$fields['billing_full_name'] = array(
+	if( !isset( $fields[ $key . '_full_name'] ) ) :
+		$fields[ $key . '_full_name'] = array(
 			'type' 					=> 'text',
 			'label' 				=> __( 'Nome Completo', 'laf' ),
 			'placeholder' 			=> __( 'Nome Completo', 'laf' ),
@@ -51,109 +52,117 @@ function custom_override_checkout_fields( $get_fields ) {
 		);
 	endif;
 
-	if( $tipo_pessoa_habilitado ) :
+	if( $key == 'billing' && $tipo_pessoa_habilitado ) :
 
-		$fields['billing_persontype']['class'] = array( 'form-row', 'form-row-last');
-		// $fields['billing_persontype']['options'][0] = $fields['billing_persontype']['label'];
-		$fields['billing_persontype']['clear '] = true;
-		$fields['billing_persontype']['priority'] = 2;
+		$fields[ $key . '_persontype']['class'] = array( 'form-row', 'form-row-last');
+		// $fields[ $key . '_persontype']['options'][0] = $fields[ $key . '_persontype']['label'];
+		$fields[ $key . '_persontype']['clear '] = true;
+		$fields[ $key . '_persontype']['priority'] = 2;
 
 	endif;
 
-	if( $pf ) :
+	if( $key == 'billing' && $pf ) :
 
-		$fields['billing_cpf']['class'] = array( 'form-row', 'form-row-first');
-		$fields['billing_cpf']['placeholder'] = $fields['billing_cpf']['label'];
-		$fields['billing_cpf']['priority'] = 3;
+		$fields[ $key . '_cpf']['class'] = array( 'form-row', 'form-row-first');
+		$fields[ $key . '_cpf']['placeholder'] = $fields[ $key . '_cpf']['label'];
+		$fields[ $key . '_cpf']['priority'] = 3;
 
 		if( $show_rg ) :
 
-			$fields['billing_rg']['class'] = array( 'form-row', 'form-row-last', 'rg-mask');
-			$fields['billing_rg']['placeholder'] = $fields['billing_rg']['label'];
-			$fields['billing_rg']['priority'] = 4;
+			$fields[ $key . '_rg']['class'] = array( 'form-row', 'form-row-last', 'rg-mask');
+			$fields[ $key . '_rg']['placeholder'] = $fields[ $key . '_rg']['label'];
+			$fields[ $key . '_rg']['priority'] = 4;
 
 		else :
 
-			// $fields['billing_full_name'][ 'class' ] = array( 'form-row', 'form-row-wide', 'nome-completo' );
-			// $fields['billing_persontype']['class'] =  array( 'form-row', 'form-row-first' );
-			$fields['billing_cpf']['class'] = array( 'form-row', 'form-row-wide');
+			// $fields[ $key . '_full_name'][ 'class' ] = array( 'form-row', 'form-row-wide', 'nome-completo' );
+			// $fields[ $key . '_persontype']['class'] =  array( 'form-row', 'form-row-first' );
+			$fields[ $key . '_cpf']['class'] = array( 'form-row', 'form-row-wide');
 
 		endif;
 
 	endif;
 
-	if( $pj ) :
+	if( $key == 'billing' && $pj ) :
 
-		$fields['billing_cnpj']['class'] = array( 'form-row', 'form-row-first');
-		$fields['billing_cnpj']['placeholder'] = $fields['billing_cnpj']['label'];
-		$fields['billing_cnpj']['priority'] = 5;
+		$fields[ $key . '_cnpj']['class'] = array( 'form-row', 'form-row-first');
+		$fields[ $key . '_cnpj']['placeholder'] = $fields[ $key . '_cnpj']['label'];
+		$fields[ $key . '_cnpj']['priority'] = 5;
 
-		$fields['billing_company']['class'] = array( 'form-row', 'form-row-last');
-		$fields['billing_company']['placeholder'] = $fields['billing_company']['label'];
-		$fields['billing_company']['priority'] = 7;
+		$fields[ $key . '_company']['class'] = array( 'form-row', 'form-row-last');
+		$fields[ $key . '_company']['placeholder'] = $fields[ $key . '_company']['label'];
+		$fields[ $key . '_company']['priority'] = 7;
 
 	else :
 
-		unset( $fields['billing_company'] );
+		unset( $fields[ $key . '_company'] );
 
 	endif;
 
-	if( $ie ) :
+	if( $key == 'billing' && $ie ) :
 
-		$fields['billing_ie']['class'] = array( 'form-row', 'form-row-last');
-		$fields['billing_ie']['placeholder'] = $fields['billing_ie']['label'];
-		$fields['billing_ie']['priority'] = 6;
+		$fields[ $key . '_ie']['class'] = array( 'form-row', 'form-row-last');
+		$fields[ $key . '_ie']['placeholder'] = $fields[ $key . '_ie']['label'];
+		$fields[ $key . '_ie']['priority'] = 6;
 	
 	endif;
 
-	$fields['billing_email']['class'] = array( 'form-row', 'form-row-first');
-	$fields['billing_email']['label'] = __( 'Endereço de e-mail (Será seu login)', 'cf' );
-	$fields['billing_email']['placeholder'] = $fields['billing_email']['label'];
-	$fields['billing_email']['priority'] = 8;
+	if( $key == 'billing' ) :
 
-	$fields['billing_phone']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first') : array( 'form-row', 'form-row-last');
-	$fields['billing_phone']['placeholder'] = __( 'Telefone para Contato', 'cf' );
-	$fields['billing_phone']['priority'] = 9;
+		$fields[ $key . '_email']['class'] = array( 'form-row', 'form-row-first');
+		$fields[ $key . '_email']['label'] = __( 'Endereço de e-mail (Será seu login)', 'cf' );
+		$fields[ $key . '_email']['placeholder'] = $fields[ $key . '_email']['label'];
+		$fields[ $key . '_email']['priority'] = 8;	
 
-	$fields['billing_postcode']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
-	$fields['billing_postcode']['placeholder'] = $fields['billing_postcode']['label'];
-	$fields['billing_postcode']['priority'] = 10;
+	endif;
 
-	$fields['billing_address_1']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first', 'disabled-input') : array( 'form-row', 'form-row-last', 'disabled-input');
-	$fields['billing_address_1']['placeholder'] = $fields['billing_address_1']['label'];
-	$fields['billing_address_1']['priority'] = 50;
+	if( $key == 'billing' ) :
 
-	$fields['billing_neighborhood']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first', 'disabled-input') : array( 'form-row', 'form-row-last', 'disabled-input');
-	$fields['billing_neighborhood']['placeholder'] = $fields['billing_neighborhood']['label'];
-	$fields['billing_neighborhood']['priority'] = 52;
+		$fields[ $key . '_phone']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first') : array( 'form-row', 'form-row-last');
+		$fields[ $key . '_phone']['placeholder'] = __( 'Telefone para Contato', 'cf' );
+		$fields[ $key . '_phone']['priority'] = 9;
 
-	$fields['billing_number']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
-	$fields['billing_number']['placeholder'] = $fields['billing_number']['label'];
-	$fields['billing_number']['priority'] = 53;
+	endif;
 
-	$fields['billing_address_2']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
-	$fields['billing_address_2']['placeholder'] = $fields['billing_address_2']['label'];
-	$fields['billing_address_2']['priority'] = 51;
+	$fields[ $key . '_postcode']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
+	$fields[ $key . '_postcode']['placeholder'] = $fields[ $key . '_postcode']['label'];
+	$fields[ $key . '_postcode']['priority'] = 10;
 
-	// $fields['billing_city']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first') : array( 'form-row', 'form-row-last');
-	$fields['billing_city']['class'] = array( 'form-row', 'form-row-last');
-	$fields['billing_city']['placeholder'] = $fields['billing_city']['label'];
-	$fields['billing_city']['priority'] = 54;
+	$fields[ $key . '_address_1']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first', 'disabled-input') : array( 'form-row', 'form-row-last', 'disabled-input');
+	$fields[ $key . '_address_1']['placeholder'] = $fields[ $key . '_address_1']['label'];
+	$fields[ $key . '_address_1']['priority'] = 50;
 
-	// $fields['billing_state']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
-	$fields['billing_state']['class'] = array( 'form-row', 'form-row-first');
-	$fields['billing_state']['placeholder'] = $fields['billing_state']['label'];
-	$fields['billing_state']['priority'] = 55;
+	$fields[ $key . '_number']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
+	$fields[ $key . '_number']['placeholder'] = $fields[ $key . '_number']['label'];
+	$fields[ $key . '_number']['priority'] = 51;
 
-	$fields['billing_first_name']['class'] = array( 'form-row', 'form-row-first', 'primeiro-nome', 'hidden' );
-	$fields['billing_first_name']['placeholder'] = $fields['billing_first_name']['label'];
-	$fields['billing_first_name']['priority'] = 90;
-	$fields['billing_first_name']['required'] = false;
+	$fields[ $key . '_address_2']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first') : array( 'form-row', 'form-row-last');
+	$fields[ $key . '_address_2']['placeholder'] = $fields[ $key . '_address_2']['label'];
+	$fields[ $key . '_address_2']['priority'] = 52;
 
-	$fields['billing_last_name']['class'] = array( 'form-row', 'form-row-last', 'sobrenome', 'hidden' );
-	$fields['billing_last_name']['placeholder'] = $fields['billing_last_name']['label'];
-	$fields['billing_last_name']['priority'] = 91;
-	$fields['billing_last_name']['required'] = false;
+	$fields[ $key . '_neighborhood']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last', 'disabled-input') : array( 'form-row', 'form-row-first', 'disabled-input');
+	$fields[ $key . '_neighborhood']['placeholder'] = $fields[ $key . '_neighborhood']['label'];
+	$fields[ $key . '_neighborhood']['priority'] = 53;
+
+	// $fields[ $key . '_city']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first') : array( 'form-row', 'form-row-last');
+	$fields[ $key . '_city']['class'] = array( 'form-row', 'form-row-last');
+	$fields[ $key . '_city']['placeholder'] = $fields[ $key . '_city']['label'];
+	$fields[ $key . '_city']['priority'] = 54;
+
+	// $fields[ $key . '_state']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
+	$fields[ $key . '_state']['class'] = array( 'form-row', 'form-row-first');
+	$fields[ $key . '_state']['placeholder'] = $fields[ $key . '_state']['label'];
+	$fields[ $key . '_state']['priority'] = 55;
+
+	$fields[ $key . '_first_name']['class'] = array( 'form-row', 'form-row-first', 'primeiro-nome', 'hidden' );
+	$fields[ $key . '_first_name']['placeholder'] = $fields[ $key . '_first_name']['label'];
+	$fields[ $key . '_first_name']['priority'] = 90;
+	$fields[ $key . '_first_name']['required'] = false;
+
+	$fields[ $key . '_last_name']['class'] = array( 'form-row', 'form-row-last', 'sobrenome', 'hidden' );
+	$fields[ $key . '_last_name']['placeholder'] = $fields[ $key . '_last_name']['label'];
+	$fields[ $key . '_last_name']['priority'] = 91;
+	$fields[ $key . '_last_name']['required'] = false;
 
 	if( !is_user_logged_in() && isset( $get_fields['account'] ) ) :
 
@@ -170,11 +179,12 @@ function custom_override_checkout_fields( $get_fields ) {
 
 	endif;
 
-	if( isset( $fields['billing'] ) )
-		unset( $fields['billing'] );
+	if( $key == 'billing' && isset( $fields[ $key ] ) )
+		unset( $fields[ $key ] );
 
+	// unset( $fields[ 'shipping_company' ] );
 
-	if( is_checkout() ) :
+	if( is_checkout() && $key == 'billing' ) :
 		$get_fields['billing'] = $fields;
 		foreach ($fields as $k => $field) :
 		endforeach;
@@ -183,6 +193,20 @@ function custom_override_checkout_fields( $get_fields ) {
 		return $fields;
 	endif;
 }
+
+// add_filter( 'woocommerce_shipping_fields' , 'custom_override_shipping_fields', 10 );
+
+function custom_override_shipping_fields( $get_fields ) {
+	$utils = new Utils;
+	$fields = $get_fields;
+	$utils->debug( $fields[ 'shipping_company' ] );
+	unset( $fields[ 'shipping_company' ] );
+
+
+	// $fields = is_checkout() ? $get_fields['billing'] : $get_fields;	
+	return $fields;
+}
+
 
 // Valida o novo campo customizado
 
