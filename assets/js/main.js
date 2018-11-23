@@ -27,10 +27,10 @@ jQuery( function( $ ) {
 				}
 			}
 		} else if( verifica_formato_cep(val) ) {
-			console.log('2');
+			// console.log('2');
 			$('#billing_address_1_field, #billing_number_field, #billing_address_2_field, #billing_neighborhood_field, #billing_city_field, #billing_state_field').addClass('visivel');
 		} else {
-			console.log('3');
+			// console.log('3');
 			$('#billing_address_1_field, #billing_number_field, #billing_address_2_field, #billing_neighborhood_field, #billing_city_field, #billing_state_field').removeClass('visivel');
 		}
 
@@ -129,14 +129,14 @@ jQuery( function( $ ) {
 				// Gets the address.
 				correios.done( function ( address ) {
 
-					console.log('addressAutoComplete');
+					// console.log('addressAutoComplete');
 
 					// Address.
 					if( address.logradouro ) {
-						console.log('encontrou logradouro');
+						// console.log('encontrou logradouro');
 						$( '#' + field + '_address_1' ).val( address.logradouro ).attr( 'readonly', 'readonly' ).change().closest( '.form-row' ).addClass( 'disabled-input' );
 					} else {
-						console.log('não encontrou logradouro');
+						// console.log('não encontrou logradouro');
 						$( '#' + field + '_address_1' ).attr('readonly', false).val( '' ).change().closest( '.form-row' ).removeClass( 'disabled-input' );
 					}
 
@@ -204,11 +204,11 @@ jQuery( function( $ ) {
 
 		cep_input.keyup(function(){
 			var val = $(this).val();
-			console.log('keyup');
-			console.log('val.length: ' + val.length);
+			// console.log('keyup');
+			// console.log('val.length: ' + val.length);
 			exibe_esconde_campos_checkout(val);
 			if(val.length === 9) {
-				console.log('val.length == 9');
+				// console.log('val.length == 9');
 				addressAutoComplete( 'billing' );
 				$( 'body' ).trigger( 'update_checkout' );
 			}

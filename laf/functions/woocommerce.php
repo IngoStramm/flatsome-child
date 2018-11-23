@@ -111,35 +111,37 @@ function custom_override_checkout_fields( $get_fields ) {
 	$fields['billing_email']['placeholder'] = $fields['billing_email']['label'];
 	$fields['billing_email']['priority'] = 8;
 
-	$fields['billing_phone']['class'] = ( !is_user_logged_in() ) ? array( 'form-row', 'form-row-first') : array( 'form-row', 'form-row-last');
+	$fields['billing_phone']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first') : array( 'form-row', 'form-row-last');
 	$fields['billing_phone']['placeholder'] = __( 'Telefone para Contato', 'cf' );
 	$fields['billing_phone']['priority'] = 9;
 
-	$fields['billing_postcode']['class'] = ( !is_user_logged_in() ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
+	$fields['billing_postcode']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
 	$fields['billing_postcode']['placeholder'] = $fields['billing_postcode']['label'];
 	$fields['billing_postcode']['priority'] = 10;
 
-	$fields['billing_address_1']['class'] = ( !is_user_logged_in() ) ? array( 'form-row', 'form-row-first', 'disabled-input') : array( 'form-row', 'form-row-last', 'disabled-input');
+	$fields['billing_address_1']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first', 'disabled-input') : array( 'form-row', 'form-row-last', 'disabled-input');
 	$fields['billing_address_1']['placeholder'] = $fields['billing_address_1']['label'];
 	$fields['billing_address_1']['priority'] = 50;
 
-	$fields['billing_neighborhood']['class'] = ( !is_user_logged_in() ) ? array( 'form-row', 'form-row-last', 'disabled-input') : array( 'form-row', 'form-row-first', 'disabled-input');
+	$fields['billing_neighborhood']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first', 'disabled-input') : array( 'form-row', 'form-row-last', 'disabled-input');
 	$fields['billing_neighborhood']['placeholder'] = $fields['billing_neighborhood']['label'];
 	$fields['billing_neighborhood']['priority'] = 52;
 
-	$fields['billing_number']['class'] = ( !is_user_logged_in() ) ? array( 'form-row', 'form-row-first') : array( 'form-row', 'form-row-last');
+	$fields['billing_number']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
 	$fields['billing_number']['placeholder'] = $fields['billing_number']['label'];
 	$fields['billing_number']['priority'] = 53;
 
-	$fields['billing_address_2']['class'] = ( !is_user_logged_in() ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
+	$fields['billing_address_2']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
 	$fields['billing_address_2']['placeholder'] = $fields['billing_address_2']['label'];
 	$fields['billing_address_2']['priority'] = 51;
 
-	$fields['billing_city']['class'] = ( !is_user_logged_in() ) ? array( 'form-row', 'form-row-first') : array( 'form-row', 'form-row-last');
+	// $fields['billing_city']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-first') : array( 'form-row', 'form-row-last');
+	$fields['billing_city']['class'] = array( 'form-row', 'form-row-last');
 	$fields['billing_city']['placeholder'] = $fields['billing_city']['label'];
 	$fields['billing_city']['priority'] = 54;
 
-	$fields['billing_state']['class'] = ( !is_user_logged_in() ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
+	// $fields['billing_state']['class'] = ( !$show_rg ) ? array( 'form-row', 'form-row-last') : array( 'form-row', 'form-row-first');
+	$fields['billing_state']['class'] = array( 'form-row', 'form-row-first');
 	$fields['billing_state']['placeholder'] = $fields['billing_state']['label'];
 	$fields['billing_state']['priority'] = 55;
 
