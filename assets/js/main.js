@@ -129,6 +129,8 @@ jQuery( function( $ ) {
 				// Gets the address.
 				correios.done( function ( address ) {
 
+					console.log('addressAutoComplete');
+
 					// Address.
 					if( address.logradouro ) {
 						console.log('encontrou logradouro');
@@ -202,8 +204,11 @@ jQuery( function( $ ) {
 
 		cep_input.keyup(function(){
 			var val = $(this).val();
+			console.log('keyup');
+			console.log('val.length: ' + val.length);
 			exibe_esconde_campos_checkout(val);
 			if(val.length === 9) {
+				console.log('val.length == 9');
 				addressAutoComplete( 'billing' );
 				$( 'body' ).trigger( 'update_checkout' );
 			}
@@ -224,6 +229,7 @@ jQuery( function( $ ) {
 		// $( '.rg-mask' ).find( 'input' ).mask( '00.000.000-0' );
 		$( '.cep-mask' ).find( 'input' ).mask( '00000-000' );
 		$( '.cep-mask-input' ).mask( '00000-000' );
+		$( '#billing_postcode' ).mask( '00000-000' );
 		$( '.fone-mask-input' ).mask( '(00) 90000-0000' );
 	};
 
