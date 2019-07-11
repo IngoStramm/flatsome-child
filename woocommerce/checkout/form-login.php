@@ -32,7 +32,7 @@ wc_print_notice( $info_message, 'notice' );
 woocommerce_login_form(
 	array(
 		// 'message'  => __( 'Se você já comprou conosco antes, informe seus dados nos campos abaixo. Se você é um cliente novo, siga para a seção de "Cobrança e Entrega".', 'flatsome' ),
-		'message'  => __( 'If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing &amp; Shipping section.', 'flatsome' ),
+		'message'  => __( 'If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing &amp; Shipping section.', 'woocommerce' ),
 		'redirect' => wc_get_page_permalink( 'checkout' ),
 		'hidden'   => true,
 	)
