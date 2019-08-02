@@ -1,4 +1,8 @@
 <?php
+
+if( !class_exists( 'WooCommerce' ) )
+		return;
+
 $parcela = new Odin_Post_Type(
     __('Parcela', 'laf'), // Nome (Singular) do Post Type.
     'parcela' // Slug do Post Type.
@@ -33,6 +37,10 @@ add_action( 'admin_head', 'hide_yoast_parcelas' );
 
 function hide_yoast_parcelas() {
 	$utils = new Utils;
+
+	if( !class_exists( 'WooCommerce' ) )
+		return;
+
 	$is_parcela = isset( $_GET['post_type'] ) ? $_GET['post_type'] == 'parcela' : false;
 	if( $is_parcela ) : ?>
 		<style>
