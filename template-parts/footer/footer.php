@@ -1,12 +1,19 @@
 <?php do_action('flatsome_before_footer'); ?>
 
 <!-- FOOTER 1 -->
-<?php if ( is_active_sidebar( 'sidebar-footer-1' ) && get_theme_mod('footer_1', 1) && !is_cart() ) : ?>
-<div class="footer-widgets footer footer-1">
-		<div class="<?php echo flatsome_footer_row_style('footer-1'); ?> mb-0">
-	   		<?php dynamic_sidebar('sidebar-footer-1'); ?>        
-		</div><!-- end row -->
-</div><!-- footer 1 -->
+
+<?php if( class_exists( 'WooCommerce' ) ) : ?>
+
+	<?php if ( is_active_sidebar( 'sidebar-footer-1' ) && get_theme_mod('footer_1', 1) && !is_cart() ) : ?>
+
+	<div class="footer-widgets footer footer-1">
+			<div class="<?php echo flatsome_footer_row_style('footer-1'); ?> mb-0">
+		   		<?php dynamic_sidebar('sidebar-footer-1'); ?>        
+			</div><!-- end row -->
+	</div><!-- footer 1 -->
+
+	<?php endif; ?>
+
 <?php endif; ?>
 
 

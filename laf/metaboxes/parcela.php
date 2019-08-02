@@ -3,6 +3,9 @@ add_action( 'cmb2_admin_init', 'parcela_register_metabox' );
 
 function parcela_register_metabox() {
 
+	if( class_exists( 'WooCommerce' ) )
+		return;
+
 	$prefix = 'parcela_';
 
 	/**
