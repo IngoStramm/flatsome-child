@@ -22,9 +22,9 @@ function fix_clearfix_profile_address() {
 
 // Woocommerce Customiza campos do checkout
 // Referência @link: https://docs.woocommerce.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
-add_filter( 'woocommerce_billing_fields' , 'custom_override_checkout_fields', 10 );
-add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields', 10 );
-add_filter( 'woocommerce_shipping_fields' , 'custom_override_checkout_fields', 10 );
+// add_filter( 'woocommerce_billing_fields' , 'custom_override_checkout_fields', 10 );
+// add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields', 10 );
+// add_filter( 'woocommerce_shipping_fields' , 'custom_override_checkout_fields', 10 );
   
 function custom_override_checkout_fields( $get_fields ) {
 
@@ -210,7 +210,7 @@ function custom_override_shipping_fields( $get_fields ) {
 
 // Valida o novo campo customizado
 
-add_action('woocommerce_checkout_process', 'cf_validation_checkout_field_process');
+// add_action('woocommerce_checkout_process', 'cf_validation_checkout_field_process');
 
 function cf_validation_checkout_field_process() {
 
