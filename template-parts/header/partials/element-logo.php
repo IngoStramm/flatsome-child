@@ -1,4 +1,4 @@
-<?php
+<?php 
 $site_logo_id        = flatsome_option('site_logo');
 $site_logo_sticky_id = flatsome_option('site_logo_sticky');
 $site_logo_dark_id   = flatsome_option('site_logo_dark');
