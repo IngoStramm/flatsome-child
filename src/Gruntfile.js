@@ -3,6 +3,7 @@ module.exports = function( grunt ) {
 	'use strict';
 
 	require( 'load-grunt-tasks' )( grunt );
+    grunt.loadNpmTasks('grunt-node-sass');
 
 	var odinConfig = {
 
@@ -64,6 +65,8 @@ module.exports = function( grunt ) {
 		// compile scss/sass files to CSS
 		sass: {
 			dist: {
+                src: ['*.scss'],
+                dest: '<%= dirs.css %>',
 				options: {
 					style: 'compressed',
 					sourcemap: 'none'
